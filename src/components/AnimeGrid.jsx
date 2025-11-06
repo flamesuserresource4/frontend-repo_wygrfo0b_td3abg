@@ -2,11 +2,11 @@ import React from 'react'
 
 const demoAnime = [
   { id: 1, title: 'Jujutsu Kaisen', image: 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=2070&auto=format&fit=crop', badge: 'Simulcast' },
-  { id: 2, title: 'Demon Slayer', image: 'https://images.unsplash.com/photo-1722573783415-a2eda4cfcd0f?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxKdWp1dHN1JTIwS2Fpc2VufGVufDB8MHx8fDE3NjI0NDI5NDF8MA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80', badge: 'New' },
+  { id: 2, title: 'Demon Slayer', image: 'https://images.unsplash.com/photo-1722573783415-a2eda4cfcd0f?ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80', badge: 'New' },
   { id: 3, title: 'One Piece', image: 'https://images.unsplash.com/photo-1722573783415-a2eda4cfcd0f?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxKdWp1dHN1JTIwS2Fpc2VufGVufDB8MHx8fDE3NjI0NDI5NDF8MA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80', badge: 'Trending' },
-  { id: 4, title: 'Spy x Family', image: 'https://images.unsplash.com/photo-1722573783415-a2eda4cfcd0f?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxKdWp1dHN1JTIwS2Fpc2VufGVufDB8MHx8fDE3NjI0NDI5NDF8MA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80', badge: 'Dub' },
+  { id: 4, title: 'Spy x Family', image: 'https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=2070&auto=format&fit=crop', badge: 'Dub' },
   { id: 5, title: 'Attack on Titan', image: 'https://images.unsplash.com/photo-1722573783415-a2eda4cfcd0f?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxKdWp1dHN1JTIwS2Fpc2VufGVufDB8MHx8fDE3NjI0NDI5NDF8MA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80', badge: 'Popular' },
-  { id: 6, title: 'My Hero Academia', image: 'https://images.unsplash.com/photo-1722573783415-a2eda4cfcd0f?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxKdWp1dHN1JTIwS2Fpc2VufGVufDB8MHx8fDE3NjI0NDI5NDF8MA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80', badge: 'Season 6' },
+  { id: 6, title: 'My Hero Academia', image: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=2070&auto=format&fit=crop', badge: 'Season 6' },
 ]
 
 export default function AnimeGrid({ sectionId = 'popular', title = 'Popular Now' }) {
@@ -19,7 +19,7 @@ export default function AnimeGrid({ sectionId = 'popular', title = 'Popular Now'
       <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
         {demoAnime.map((item) => (
           <article key={item.id} className="group">
-            <div className="relative aspect-[2/3] overflow-hidden rounded-xl ring-1 ring-black/5 shadow-sm">
+            <div className="relative aspect-[2/3] overflow-hidden rounded-xl ring-1 ring-black/5 dark:ring-white/10 shadow-sm">
               <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
               <span className="absolute top-2 left-2 text-[10px] uppercase tracking-wide bg-black/80 text-white px-2 py-0.5 rounded">
                 {item.badge}
