@@ -11,10 +11,14 @@ function App() {
 
   // Read persisted theme on first load
   useEffect(() => {
-    const stored = localStorage.getItem('theme');
-    if (stored === 'light' || stored === 'dark' || stored === 'system') {
-      setTheme(stored);
-    } else {
+    try {
+      const stored = localStorage.getItem('theme');
+      if (stored === 'light' || stored === 'dark' || stored === 'system') {
+        setTheme(stored);
+      } else {
+        setTheme('system');
+      }
+    } catch {
       setTheme('system');
     }
   }, []);
@@ -39,26 +43,31 @@ function App() {
     applyTheme(theme);
 
     const handleChange = (e) => {
-      // Only react to system changes when theme is set to system
       if (theme === 'system') {
         if (e.matches) root.classList.add('dark');
         else root.classList.remove('dark');
       }
     };
 
-    // Attach listener only for system mode
+    // Safari compatibility: addEventListener may not exist
+    const useAddEventListener = typeof media.addEventListener === 'function';
+
     if (theme === 'system') {
-      media.addEventListener('change', handleChange);
+      if (useAddEventListener) media.addEventListener('change', handleChange);
+      else if (typeof media.addListener === 'function') media.addListener(handleChange);
     }
 
     return () => {
-      media.removeEventListener('change', handleChange);
+      if (useAddEventListener) media.removeEventListener?.('change', handleChange);
+      else if (typeof media.removeListener === 'function') media.removeListener(handleChange);
     };
   }, [theme]);
 
   const handleSetTheme = (value) => {
     setTheme(value);
-    localStorage.setItem('theme', value);
+    try {
+      localStorage.setItem('theme', value);
+    } catch {}
   };
 
   const authProps = useMemo(() => ({ user, setUser }), [user]);
