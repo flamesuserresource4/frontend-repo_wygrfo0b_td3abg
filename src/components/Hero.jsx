@@ -1,45 +1,26 @@
-import React from 'react'
+import Spline from '@splinetool/react-spline';
 
-export default function Hero({ onStart }) {
+export default function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-orange-100 via-white to-white dark:from-orange-950/20 dark:via-gray-950 dark:to-gray-950 pointer-events-none" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-24 relative">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300 text-xs font-semibold">
-              New season now streaming
-            </div>
-            <h1 className="mt-4 text-4xl sm:text-5xl font-black tracking-tight leading-tight">
-              Stream anime you love. Anywhere. Anytime.
-            </h1>
-            <p className="mt-4 text-gray-600 dark:text-gray-300 text-lg">
-              Explore simulcasts, classics, and hidden gems — all in one place with crisp UI and zero clutter.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <button onClick={onStart} className="px-5 py-3 rounded-md bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow">
-                Start Watching
-              </button>
-              <a href="#popular" className="px-5 py-3 rounded-md border border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold">
-                Browse Popular
-              </a>
-            </div>
-            <div className="mt-6 flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
-              <div className="flex -space-x-2">
-                <img className="h-7 w-7 rounded-full ring-2 ring-white dark:ring-gray-900" src="https://i.pravatar.cc/40?img=1"/>
-                <img className="h-7 w-7 rounded-full ring-2 ring-white dark:ring-gray-900" src="https://i.pravatar.cc/40?img=2"/>
-                <img className="h-7 w-7 rounded-full ring-2 ring-white dark:ring-gray-900" src="https://i.pravatar.cc/40?img=3"/>
-              </div>
-              <span>Trusted by anime fans worldwide</span>
-            </div>
+    <section className="relative overflow-hidden rounded-xl border border-slate-200 bg-white/60 p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
+      <div className="relative grid gap-6 lg:grid-cols-2">
+        <div className="relative z-10 flex flex-col justify-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Stream anime you love
+          </h1>
+          <p className="mt-3 max-w-prose text-slate-600 dark:text-slate-300">
+            Discover popular series, fresh episodes, and hidden gems. Enjoy a sleek, responsive experience with light, dark, and system themes.
+          </p>
+          <div className="mt-6 flex items-center gap-3">
+            <a href="#popular" className="rounded-md bg-orange-500 px-5 py-2 text-sm font-medium text-white shadow hover:bg-orange-600">Start Watching</a>
+            <a href="#new" className="rounded-md border border-slate-200 bg-white/70 px-5 py-2 text-sm hover:bg-slate-100/80 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-800/70">Browse New</a>
           </div>
-          <div className="relative">
-            <div className="aspect-[16/10] rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/5 dark:ring-white/10">
-              <img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=2070&auto=format&fit=crop" alt="Anime collage" className="h-full w-full object-cover"/>
-            </div>
-          </div>
+        </div>
+        <div className="relative h-64 w-full sm:h-80 md:h-96 lg:h-full">
+          <Spline scene="https://prod.spline.design/7t8TqQGzx4nvuH2d/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/70 via-transparent to-orange-100/30 dark:from-[#0b0e14]/70 dark:via-transparent dark:to-orange-500/10" />
         </div>
       </div>
     </section>
-  )
+  );
 }

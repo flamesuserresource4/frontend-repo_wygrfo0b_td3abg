@@ -1,65 +1,82 @@
-import React from 'react'
-import { Sun, Moon, Monitor } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom';
+import { Sun, Moon, Monitor, User, LogOut } from 'lucide-react';
 
-export default function Navbar({ onLogin, onRegister, isAuthed, username, onLogout, theme = 'system', onThemeChange }) {
+export default function Navbar({ theme, setTheme, user, setUser }) {
+  const navigate = useNavigate();
+
+  const ThemeButton = ({ value, Icon, label }) => (
+    <button
+      onClick={() => setTheme(value)}
+      aria-label={label}
+      className={`inline-flex items-center justify-center rounded-md border px-2.5 py-1.5 text-sm transition-colors
+        ${theme === value
+          ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 border-slate-900 dark:border-white'
+          : 'bg-white/70 text-slate-700 dark:bg-slate-800/70 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:bg-slate-100/90 dark:hover:bg-slate-700/70'}
+      `}
+    >
+      <Icon className="h-4 w-4" />
+    </button>
+  );
+
   return (
-    <header className="w-full sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-white/60 bg-white/80 dark:bg-gray-900/80 dark:supports-[backdrop-filter]:bg-gray-900/60 border-b border-black/5 dark:border-white/10">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-40 w-full border-b bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:border-slate-800 dark:bg-[#0b0e14]/60 dark:supports-[backdrop-filter]:bg-[#0b0e14]/40">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded bg-orange-500" />
-          <span className="text-xl font-extrabold tracking-tight">
-            AniStream
-          </span>
+          <Link to="/" className="font-semibold tracking-tight">
+            <span className="text-orange-500">Ani</span>
+            <span className="text-slate-900 dark:text-white">Stream</span>
+          </Link>
+
+          <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600 dark:text-slate-300">
+            <a href="#popular" className="hover:text-slate-900 dark:hover:text-white">Popular</a>
+            <a href="#new" className="hover:text-slate-900 dark:hover:text-white">New</a>
+            <a href="#genres" className="hover:text-slate-900 dark:hover:text-white">Genres</a>
+          </nav>
         </div>
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-700 dark:text-gray-300">
-          <a href="#popular" className="hover:text-gray-900 dark:hover:text-white">Popular</a>
-          <a href="#new" className="hover:text-gray-900 dark:hover:text-white">New</a>
-          <a href="#genres" className="hover:text-gray-900 dark:hover:text-white">Genres</a>
-        </nav>
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center rounded-md border border-gray-200 dark:border-white/10 overflow-hidden">
-            <button
-              onClick={() => onThemeChange && onThemeChange('light')}
-              className={`px-2.5 py-2 text-sm flex items-center gap-1 ${theme==='light' ? 'bg-white dark:bg-gray-800 text-orange-600' : 'text-gray-600 dark:text-gray-300'}`}
-              title="Light"
-            >
-              <Sun className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => onThemeChange && onThemeChange('dark')}
-              className={`px-2.5 py-2 text-sm flex items-center gap-1 ${theme==='dark' ? 'bg-white dark:bg-gray-800 text-orange-600' : 'text-gray-600 dark:text-gray-300'}`}
-              title="Dark"
-            >
-              <Moon className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => onThemeChange && onThemeChange('system')}
-              className={`px-2.5 py-2 text-sm flex items-center gap-1 ${theme==='system' ? 'bg-white dark:bg-gray-800 text-orange-600' : 'text-gray-600 dark:text-gray-300'}`}
-              title="System"
-            >
-              <Monitor className="h-4 w-4" />
-            </button>
+
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <ThemeButton value="light" Icon={Sun} label="Light mode" />
+            <ThemeButton value="dark" Icon={Moon} label="Dark mode" />
+            <ThemeButton value="system" Icon={Monitor} label="System theme" />
           </div>
 
-          {!isAuthed ? (
-            <>
-              <button onClick={onLogin} className="px-3 py-1.5 rounded-md text-sm font-semibold hover:text-orange-600">
-                Log In
+          <div className="mx-2 h-6 w-px bg-slate-200 dark:bg-slate-800" />
+
+          {user ? (
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white/70 px-2.5 py-1.5 text-sm dark:border-slate-800 dark:bg-slate-900/60">
+                <User className="h-4 w-4" />
+                <span className="max-w-[8rem] truncate">{user.username}</span>
+              </div>
+              <button
+                onClick={() => {
+                  setUser(null);
+                  navigate('/');
+                }}
+                className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-rose-500/10 px-2.5 py-1.5 text-sm text-rose-600 hover:bg-rose-500/20 dark:border-rose-800 dark:text-rose-300"
+              >
+                <LogOut className="h-4 w-4" /> Logout
               </button>
-              <button onClick={onRegister} className="px-3 py-1.5 rounded-md bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold shadow">
-                Create Account
-              </button>
-            </>
+            </div>
           ) : (
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-700 dark:text-gray-300">Hi, {username}</span>
-              <button onClick={onLogout} className="px-3 py-1.5 rounded-md border border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-gray-800 text-sm font-medium">
-                Logout
-              </button>
+            <div className="flex items-center gap-2">
+              <Link
+                to="/login"
+                className="rounded-md border border-slate-200 bg-white/70 px-3 py-1.5 text-sm hover:bg-slate-100/80 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-800/70"
+              >
+                Log in
+              </Link>
+              <Link
+                to="/register"
+                className="rounded-md bg-orange-500 px-3 py-1.5 text-sm font-medium text-white shadow hover:bg-orange-600"
+              >
+                Sign up
+              </Link>
             </div>
           )}
         </div>
       </div>
     </header>
-  )
+  );
 }
